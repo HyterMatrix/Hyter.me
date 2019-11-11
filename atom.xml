@@ -4,13 +4,50 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2019-10-14T09:44:16+08:00</updated>
+  <updated>2019-11-12T01:07:05+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac 时间机器 Time Machine 备份速度太慢的解决方法 (加速备份命令)]]></title>
+    <link href="https://hyter.me/speed-up-time-machine.html"/>
+    <updated>2019-11-12T01:02:39+08:00</updated>
+    <id>https://hyter.me/speed-up-time-machine.html</id>
+    <content type="html"><![CDATA[
+<p>相信用过一段时间电脑的人，都知道经常备份的重要性了。特别最近很多人需要将 Mac 升级到最新版本的 macOS Catalina，为防意外发生，就更需要在动手前做好备份了。</p>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_0">macOS 时光机器</h2>
+
+<p>macOS 自带的「时间机器」(Time Machine) 绝对就是 Mac 上最方便的备份工具了，一来完全免费，可以“无感”地替你默默在后台备份，而且因为它是苹果自家开发的，兼容性也最好，所以推荐大家都使用“时间机器”来备份 Mac 电脑。</p>
+
+<h2 id="toc_1">解决 时间机器备份速度太慢的问题</h2>
+
+<p>然而部分同学在尝试使用时间机器备份系统资料时，却发现它的首次备份速度非常慢，跟自己的网络和机器配置似乎并不匹配，甚至有时花费超过 48 小时都无法完成，即便接了网线、关掉所有 APP 后，备份速度都没有明显提升。</p>
+
+<p>其实，时光机器备份太慢是由于 macOS 本身对其进行了限流的措施，对硬盘读写的频率和内存使用都做了一定的限制，主要是为了防止在备份期间影响了用户正常使用电脑工作。但如果你正在等它完成备份，再去进行系统升级或其他操作，就比较悲剧了。</p>
+
+<h2 id="toc_2">macOS 时光机器备份加速命令</h2>
+
+<p>如果你真的打算让时光机器全力全速工作，那也是有办法的，就是通过命令行，用命令强制关闭系统对时光机器的限流，俗称“解除封印”。打开终端，输入以下命令：</p>
+
+<pre class="line-numbers"><code class="language-shell">sudo sysctl debug.lowpri_throttle_enabled=0
+</code></pre>
+
+<p>这时你就会发现时光机器的备份速度变快很多很多了！！基本能达到网络和硬盘读写的应有的速度了。等它完成了首次的备份之后，你可以再执行下面的命令，恢复到原本限流的状态，以保证日后使用电脑时不被时光机器备份占去太多的资源导致变卡。</p>
+
+<pre class="line-numbers"><code class="language-shell">sudo sysctl debug.lowpri_throttle_enabled=1
+</code></pre>
+
+<p>当然了，如果你的时光机器备份是保存在 NAS 或路由器上网络存储的，都推荐连接“网线”进行首次备份，比起 WiFi 的速度很稳定性都是要高很多。另外，如果你使用 MacBook 的话，记得还要接通电源再备份才能获得最好的速度哦。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac MAMP安装libsodium扩展]]></title>
@@ -984,196 +1021,6 @@ let disjoint = yourSecondBag.isDisjoint(with: roommatesSecondBag)
 </code></pre>
 
 <p>根据是否有集合（如yourSecondBag）的任何成员出现在作为参数提供给isDisjoint的序列（如roommatesSecondBag）中，Set的isDisjoint(with:)方法会返回真或假。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Swift编程入门（9）字典]]></title>
-    <link href="https://hyter.me/swift-learning-9.html"/>
-    <updated>2018-12-20T21:07:55+08:00</updated>
-    <id>https://hyter.me/swift-learning-9.html</id>
-    <content type="html"><![CDATA[
-<p>当容器中的元素顺序很重要时，<code>Array</code>类型很有用。<br/>
-然而顺序不总是很重要。有时候我们只是想在容器中持有一组数据，并在需要时获取信息。这就是<code>字典（dictionary）</code>的使用场景。<br/>
-Dictionary使用键值对（key-value pair）组织其内容的容器类型。字典的键映射到值。<br/>
-Dictionary中的键必须是唯一的。这个要求意味着每个键都唯一地映射到对应的值。<br/>
-<span id="more"></span><!-- more --></p>
-
-<ul>
-<li>
-<a href="#toc_0">创建字典</a>
-</li>
-<li>
-<a href="#toc_1">初始化字典</a>
-</li>
-<li>
-<a href="#toc_2">访问和修改字典</a>
-<ul>
-<li>
-<a href="#toc_3">获取字典的元素个数</a>
-</li>
-<li>
-<a href="#toc_4">读取值</a>
-</li>
-<li>
-<a href="#toc_5">修改值</a>
-</li>
-<li>
-<a href="#toc_6">更新值</a>
-</li>
-<li>
-<a href="#toc_7">增加值</a>
-</li>
-<li>
-<a href="#toc_8">删除值</a>
-</li>
-<li>
-<a href="#toc_9">把一个键的值设为nil</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_10">循环</a>
-<ul>
-<li>
-<a href="#toc_11">遍历字典</a>
-</li>
-<li>
-<a href="#toc_12">只访问键</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_13">不可变字典</a>
-</li>
-<li>
-<a href="#toc_14">把字典转换为数组</a>
-</li>
-</ul>
-
-
-<h2 id="toc_0">创建字典</h2>
-
-<p>创建Swift字典的通用语法如下：<code>var dict: Dictionary&lt;Key, Value&gt;</code>。这行代码创建一个Dictionary的可变实例，名叫dict。对字典的键和值接受什么类型的声明位于尖括号（&lt;&gt;）中，这里用Key和Value表示。<br/>
-对于Swift中Dictionary类型的键，唯一的要求是其必须可散列（hashable）：也就是每个Key必须提供一种机制让Dictionary保证任何给定的键都是唯一的。Swift的基本类型都是可散列的，比如String、Int、Float、Double和Bool。<br/>
-看获得一个Dictionary实例的不同方法.</p>
-
-<pre class="line-numbers"><code class="language-swift">var dict1: Dictionary&lt;String, Double&gt; = [:] 
-var dict2 = Dictionary&lt;String, Double&gt;() 
-var dict3: [String:Double] = [:] 
-var dict4 = [String:Double]() 
-</code></pre>
-
-<p>这4种方法得到的是同样的结果：经过完整初始化的Dictionary类型的实例，以及其键值的类型信息。Key被设置为接受String类型的键，而Value被设置为接受Double类型的值。在这4种情况下，字典实例都是空的：没有键也没有值。<br/>
-[:]和()语法有什么区别呢？本质上是一样的。两者都创建并准备好了Dictionary类型的实例。[:]使用字面量语法创建Dictionary类型的空实例，并且会使用声明中提供的类型信息束键和值。比如说，dict1指定其类型并被初始化为空字典。()语法则使用Dictionary类型的默认初始化方法，这个方法会准备一个空的字典实例。本书后面部分会详细介绍初始化方法。</p>
-
-<h2 id="toc_1">初始化字典</h2>
-
-<pre class="line-numbers"><code class="language-swift">var movieRatings = [&quot;Donnie Darko&quot;: 4, &quot;Chungking Express&quot;: 5, &quot;Dark City&quot;: 4]
-</code></pre>
-
-<h2 id="toc_2">访问和修改字典</h2>
-
-<h3 id="toc_3">获取字典的元素个数</h3>
-
-<pre class="line-numbers"><code class="language-swift">import Cocoa 
-var movieRatings = [&quot;Donnie Darko&quot;: 4, &quot;Chungking Express&quot;: 5, &quot;Dark City&quot;: 4] 
-print(&quot;I have rated \(movieRatings.count) movies.&quot;)
-</code></pre>
-
-<p>使用字典的<code>count</code>属性</p>
-
-<h3 id="toc_4">读取值</h3>
-
-<pre class="line-numbers"><code class="language-swift">import Cocoa 
-var movieRatings = [&quot;Donnie Darko&quot;: 4, &quot;Chungking Express&quot;: 5, &quot;Dark City&quot;: 4] 
-print(&quot;I have rated \(movieRatings.count) movies.&quot;) 
-let darkoRating = movieRatings[&quot;Donnie Darko&quot;]
-</code></pre>
-
-<h3 id="toc_5">修改值</h3>
-
-<pre class="line-numbers"><code class="language-swift">import Cocoa 
-var movieRatings = [&quot;Donnie Darko&quot;: 4, &quot;Chungking Express&quot;: 5, &quot;Dark City&quot;: 4] 
-print(&quot;I have rated \(movieRatings.count) movies.&quot;) 
-let darkoRating = movieRatings[&quot;Donnie Darko&quot;] 
-movieRatings[&quot;Dark City&quot;] = 5 
-movieRatings
-</code></pre>
-
-<h3 id="toc_6">更新值</h3>
-
-<p>还有一种有用的方式可以更新与字典的键相关联的值：<code>updateValue(_:forKey:)</code>方法。这<br/>
-个方法接受两个参数：value: Value和forKey: Key。第一个参数value接受新的值，第二个<br/>
-参数forKey指定哪个键需要改变值。<br/>
-这个方法之所以有用，是因为它能保存该键之前映射的值。还有个小小的警告：<code>updateValue(_:forKey:)</code>返回可空类型。这种返回类型很方便，因为这个键可能在字典中不存在。因此，把<code>updateValue(_:forKey:)</code>的返回值赋给一个预期类型的可空实例，并用可空实例绑定来获取这个键的旧值会很有用。</p>
-
-<pre class="line-numbers"><code class="language-swift">import Cocoa 
-var movieRatings = [&quot;Donnie Darko&quot;: 4, &quot;Chungking Express&quot;: 5, &quot;Dark City&quot;: 4] 
-print(&quot;I have rated \(movieRatings.count) movies.&quot;) 
-let darkoRating = movieRatings[&quot;Donnie Darko&quot;] 
-movieRatings[&quot;Dark City&quot;] = 5 
-movieRatings 
-let oldRating: Int? = movieRatings.updateValue(5, forKey: &quot;Donnie Darko&quot;) 
-if let lastRating = oldRating, let currentRating = movieRatings[&quot;Donnie Darko&quot;] { 
-print(&quot;Old rating: \(lastRating); current rating: \(currentRating)&quot;) 
-}
-</code></pre>
-
-<h3 id="toc_7">增加值</h3>
-
-<pre class="line-numbers"><code class="language-swift">movieRatings[&quot;The Cabinet of Dr. Caligari&quot;] = 5
-</code></pre>
-
-<p>这里用语法<code>movieRatings[&quot;The Cabinet of Dr. Caligari&quot;] = 5</code>给字典增加了新的键值对。赋值运算符将值（本例中是5）关联到了新键（&quot;The Cabinet of Dr. Caligari&quot;上。</p>
-
-<h3 id="toc_8">删除值</h3>
-
-<pre class="line-numbers"><code class="language-swift">movieRatings.removeValue(forKey: &quot;Dark City&quot;)
-</code></pre>
-
-<p><code>removeValue(forKey:)</code>方法接受一个键作为参数，将与其匹配的键值对删除。</p>
-
-<h3 id="toc_9">把一个键的值设为nil</h3>
-
-<pre class="line-numbers"><code class="language-swift">movieRatings[&quot;Dark City&quot;] = nil
-</code></pre>
-
-<p>结果在本质上和删除一样的，但是这样写不会返回被删除键的值。</p>
-
-<h2 id="toc_10">循环</h2>
-
-<h3 id="toc_11">遍历字典</h3>
-
-<pre class="line-numbers"><code class="language-swift">for (key, value) in movieRatings { 
-    print(&quot;The movie \(key) was rated \(value).&quot;) 
-}
-</code></pre>
-
-<h3 id="toc_12">只访问键</h3>
-
-<pre class="line-numbers"><code class="language-swift">for movie in movieRatings.keys { 
-    print(&quot;User has rated \(movie).&quot;) 
-}
-</code></pre>
-
-<h2 id="toc_13">不可变字典</h2>
-
-<p>创建不可变字典和创建不可变数组差不多，用let关键字告诉Swift编译器这个Dictionary实例不可变。</p>
-
-<pre class="line-numbers"><code class="language-swift">let album = [&quot;Diet Roast Beef&quot;: 268, 
-            &quot;Dubba Dubbs Stubs His Toe&quot;: 467, 
-            &quot;Smokey&#39;s Carpet Cleaning Service&quot;: 187, 
-            &quot;Track 4&quot;: 221] 
-</code></pre>
-
-<h2 id="toc_14">把字典转换为数组</h2>
-
-<p>有时候把字典中的信息取出并放入数组会很有用。合理的做法是用字典的键创建一个Array.</p>
-
-<pre class="line-numbers"><code class="language-swift">let watchedMovies = Array(movieRatings.keys)
-</code></pre>
 
 ]]></content>
   </entry>
