@@ -4,7 +4,7 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2019-11-15T17:53:49+08:00</updated>
+  <updated>2019-11-15T17:57:41+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -22,7 +22,7 @@
 
 <pre class="line-numbers"><code class="language-shell">sudo chown $USER ~/Library/Caches/com.microsoft.VSCode.ShipIt/  
 
-重启之后，再更新就好了
+重启之后，再更新就好了。
 </code></pre>
 
 ]]></content>
