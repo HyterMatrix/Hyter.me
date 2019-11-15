@@ -4,13 +4,29 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2019-11-12T01:22:31+08:00</updated>
+  <updated>2019-11-15T17:46:00+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Could not create temporary directory: 权限被拒绝]]></title>
+    <link href="https://hyter.me/could-not-create-temporary-directory.html"/>
+    <updated>2019-11-15T17:43:49+08:00</updated>
+    <id>https://hyter.me/could-not-create-temporary-directory.html</id>
+    <content type="html"><![CDATA[
+<p>解决方式</p>
+
+<pre class="line-numbers"><code class="language-shell">sudo chown $USER ~/Library/Caches/com.microsoft.VSCode.ShipIt/  
+</code></pre>
+
+<p>重启之后，再更新</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac 时间机器 Time Machine 备份速度太慢的解决方法 (加速备份命令)]]></title>
@@ -925,102 +941,6 @@ guard let middleName = name.middle这行代码把middle的值绑定到middleName
 let evenOddFunction: ([Int]) -&gt; ([Int], [Int]) = sortedEvenOddNumbers
 evenOddFunction([1,2,3])
 </code></pre>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Swift编程入门（10）集合]]></title>
-    <link href="https://hyter.me/swift-learning-10.html"/>
-    <updated>2018-12-20T21:18:09+08:00</updated>
-    <id>https://hyter.me/swift-learning-10.html</id>
-    <content type="html"><![CDATA[
-<p>Swift提供的第三种容器类型是集合（set）。集合是一组互不相同的实例的无序组合。这个定义将其与数组区别开来，后者是有序的，并且可以容纳重复的值。<br/>
-<span id="more"></span><!-- more --></p>
-
-<ul>
-<li>
-<a href="#toc_0">创建集合</a>
-</li>
-<li>
-<a href="#toc_1">运用集合</a>
-<ul>
-<li>
-<a href="#toc_2">合并</a>
-</li>
-<li>
-<a href="#toc_3">交集</a>
-</li>
-<li>
-<a href="#toc_4">不相交</a>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2 id="toc_0">创建集合</h2>
-
-<pre class="line-numbers"><code class="language-swift">import Cocoa 
-var groceryBag = Set&lt;String&gt;() 
-</code></pre>
-
-<p>我们创建了一个Set实例，声明其持有String。</p>
-
-<p>我们用<code>用insert(_:)方法</code>可以往这个集合里添加一些数据</p>
-
-<pre class="line-numbers"><code class="language-swift">groceryBag.insert(&quot;Apples&quot;) 
-groceryBag.insert(&quot;Oranges&quot;) 
-groceryBag.insert(&quot;Pineapple&quot;) 
-</code></pre>
-
-<p>遍历集合</p>
-
-<pre class="line-numbers"><code class="language-swift">for food in groceryBag { 
-    print(food) 
-} 
-</code></pre>
-
-<p>新的创建集合</p>
-
-<pre class="line-numbers"><code class="language-swift">var groceryBag = Set([&quot;Apples&quot;, &quot;Oranges&quot;, &quot;Pineapple&quot;]) 
-var groceryBag: Set = [&quot;Apples&quot;, &quot;Oranges&quot;, &quot;Pineapple&quot;] 
-
-</code></pre>
-
-<h2 id="toc_1">运用集合</h2>
-
-<p>Set类型提供了contains(_:)方法来查看其内部是否有某个特殊的元素</p>
-
-<pre class="line-numbers"><code class="language-swift">let hasBananas = groceryBag.contains(&quot;Bananas&quot;) 
-</code></pre>
-
-<p>hasBananas的值为假，你的groceryBag里面没有香蕉。</p>
-
-<h3 id="toc_2">合并</h3>
-
-<pre class="line-numbers"><code class="language-swift">let friendsGroceryBag = Set([&quot;Bananas&quot;, &quot;Cereal&quot;, &quot;Milk&quot;, &quot;Oranges&quot;]) 
-let commonGroceryBag = groceryBag.union(friendsGroceryBag) 
-</code></pre>
-
-<p>这段代码增加了一个新的Set常量来表示你朋友的食品袋，并且用<code>union(_:)方法</code>把两个集合合并起来。<code>union(_:)</code>是Set类型的一个方法，接受一个SequenceType参数，并返回一个新的Set实例。该实例包含了两个容器中去重后的元素。简单地说，你可以把字典和集合传给<code>union(_:)</code>并得到一个包含合并后元素的集合，不会有重复。</p>
-
-<h3 id="toc_3">交集</h3>
-
-<pre class="line-numbers"><code class="language-swift">let roommatesGroceryBag = Set([&quot;Apples&quot;, &quot;Bananas&quot;, &quot;Cereal&quot;,&quot;Toothpaste&quot;]) 
-let itemsToReturn = commonGroceryBag.intersection(roommatesGroceryBag) 
-</code></pre>
-
-<p>集合提供了<code>intersection(_:)</code>方法来找出同时存在于两个容器中的元素，并用一个新的Set实例返回这些重复的元素。图11-2用韦恩图的形式说明了这种关系。你室友的食品袋和你的有几样重复，不过不是所有都重复。</p>
-
-<h3 id="toc_4">不相交</h3>
-
-<pre class="line-numbers"><code class="language-swift">let yourSecondBag = Set([&quot;Berries&quot;, &quot;Yogurt&quot;]) 
-let roommatesSecondBag = Set([&quot;Grapes&quot;, &quot;Honey&quot;]) 
-let disjoint = yourSecondBag.isDisjoint(with: roommatesSecondBag) 
-</code></pre>
-
-<p>根据是否有集合（如yourSecondBag）的任何成员出现在作为参数提供给isDisjoint的序列（如roommatesSecondBag）中，Set的isDisjoint(with:)方法会返回真或假。</p>
 
 ]]></content>
   </entry>
