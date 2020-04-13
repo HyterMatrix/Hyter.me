@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="nSj13TCGgaK_VvpHUEJ9iDYee8rMDXsd-pUU-KWneLA" />
     <title>
     
-  pem转pfx - HyterMatrix
+  解决npm安装electron很慢的问题 - HyterMatrix
   
   </title>
   
@@ -139,14 +139,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>pem转pfx</h1>
+          <h1>解决npm安装electron很慢的问题</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2019/07/03 17:15 下午</span>
+          <span class="date">2020/04/13 15:42 下午</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='other.html'>碎碎嘴</a></span>
+              <span class="posted-in"><a href='NPM.html'>NPM</a></span>
            
          
           <span class="comments">
@@ -159,11 +159,82 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <pre class="line-numbers"><code class="language-shell">openssl req -new -key privkey.pem -out root.csr 
- 
-openssl x509 -req -days 3650 -sha1 -extensions v3_ca -signkey privkey.pem -in root.csr -out root.crt 
- 
-openssl pkcs12 -export -in root.crt -inkey privkey.pem -out  an.pfx 
+      <p>无论是选择 <code>electron-builder</code>还是 <code>electron-packager</code>，甚至其它的各种流行 <code>electron</code>打包工具，总是会绕不开一个问题：脚本会下载特定版本的 <code>electron</code>的 <code>prebuild</code>版本。</p>
+
+<p>而对于国内的广大 <code>electron</code>开发者来说，这个过程往往是非常漫长并且痛苦的。如何解决速度慢的这个问题呢？欢迎仔细阅</p>
+
+<p>本文的主要测试环境是 <code>window</code>和 <code>mac</code>， <code>npm</code>的版本号均为 <code>5.6.0</code>。</p>
+
+<h2 id="toc_0">适用症状</h2>
+
+<p><code>electron</code>打包的时候，下载慢下载慢！有&quot;下载龟速&quot;的类似问题的同学，适合查看本篇内容。如果下载过程很快的话，就不需要查看本篇内容了。</p>
+
+<p>特征就是下载这些特定版本的 <code>electron</code>的时候，速度是几K到几十K每秒的速度，甚至是直接下载失败。而通过本文的办法，这个速度可以提高到几M每秒，瞬间下载完毕。</p>
+
+<h2 id="toc_1">预处理方案：淘宝 <code>electron</code> 源</h2>
+
+<p>淘宝的这个 <code>electron</code>镜像，真心是国内广大猿类的救星。本文中的主角也是这个 <code>electron</code>的淘宝镜像，地址如下：</p>
+
+<ul>
+<li><a href="https://segmentfault.com/go/4658L_o3chLyTgNe32JaMklm74xkFhFc9JQmVmGoUaySs3VHvqwMlsP0JocyK2mvb1ziLNFSXLpHsIHATlnxmwaV548">http://npm.taobao.org/mirrors/electron/</a></li>
+</ul>
+
+<p>简而言之，需要执行的前置命令是：</p>
+
+<pre class="line-numbers"><code class="language-text">npm config set registry https://registry.npm.taobao.org/
+npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
+</code></pre>
+
+<h2 id="toc_2">解决方案一（win系统推荐）</h2>
+
+<p>对于win系统，可以修改全局变量，很简单。新建用户全局变量即可。如下所示：<br/>
+名称为 <code>ELECTRON_MIRROR</code>，值为： <code>http://npm.taobao.org/mirrors/electron/</code>。</p>
+
+<p>注意，保存之后，要重新打开一个命令行窗体，这些全局变量才会生效！马上体验一下刷刷下载的感觉吧~ 对于国内用户来说，加速效果是非常的明显，效果特别好。</p>
+
+<p>ps一下：这些下载好的文件，位于： <code>%LOCALAPPDATA%/electron/Cache</code>目录下面。</p>
+
+<h2 id="toc_3">解决方案二（mac/centos系统推荐）</h2>
+
+<p><code>mac</code>系统下，需要修改 <code>/etc/bashrc</code> 文件。见下图，在 <code>/etc/bashrc</code> 文件中，增加一条内容。当然，如果涉及到权限问题，下面的语句可以参考。</p>
+
+<pre class="line-numbers"><code class="language-text">sudo vi /etc/bashrc
+wq!
+</code></pre>
+
+<p>在 <code>/etc/bashrc</code> 文件中，要增加的设置：</p>
+
+<pre class="line-numbers"><code class="language-text">export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+</code></pre>
+
+<p>修改保存之后，记得执行一下 <code>source</code>命令使变量及时生效。</p>
+
+<pre class="line-numbers"><code class="language-text">source /etc/bashrc
+</code></pre>
+
+<h2 id="toc_4">解决方案三（通用）</h2>
+
+<p>这个方案不论系统，统一有效，就是在相关的命令之前都增加下面的命令。<br/>
+比如运行 <code>electron-packager ./</code>的时候，增加 <code>ELECTRON_MIRROR=</code>类似字样：</p>
+
+<pre class="line-numbers"><code class="language-text">ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-packager ./
+</code></pre>
+
+<h2 id="toc_5">解决方案四（通用）</h2>
+
+<p>如果您不想修改环境变量的话，这里还有个比较适合小白的方式。就是使用迅雷下载好对应的安装 <code>zip</code>包和 <code>SHASUM256.txt</code>文件，然后复制到 <code>electron</code>的临时目录，然后再执行对应的命令，也是可以快速安装的。下载的地址是：</p>
+
+<ul>
+<li><a href="https://segmentfault.com/go/4658L_o3chLyTgNe32JaMklm74xkFhFc9JQmVmGoUaySs3VHvqwMlsP0JocyK2mvb1ziLNFSXLpHsIHATlnxmwaV548">http://npm.taobao.org/mirrors/electron/</a></li>
+</ul>
+
+<p>注意：这里的 <code>SHASUM256.txt</code>文件需要重命名一下，加上版本号的字样。例如: <code>SHASUM256.txt-1.7.9</code>。</p>
+
+<h2 id="toc_6">总结</h2>
+
+<p>手工安装特定版本的 <code>electron</code>的姿势如下，历史上曾经有过 <code>electron-prebuild</code>的表述，目前是过期的表述，目前两者已经统一为 <code>electron</code>字样了。</p>
+
+<pre class="line-numbers"><code class="language-text">sudo npm install electron@5.7.0 -g
 </code></pre>
 
 
@@ -175,16 +246,13 @@ openssl pkcs12 -export -in root.crt -inkey privkey.pem -out  an.pfx
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="mac-clear-ssh-keygen.html" 
-          title="Previous Post: MAC下ssh报错，清除原有ssh密钥方法">&laquo; MAC下ssh报错，清除原有ssh密钥方法</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="php-ping-code.html" 
-          title="Next Post: PHP代码 ping 域名">PHP代码 ping 域名 &raquo;</a>
+          <a  href="could-not-create-temporary-directory.html" 
+          title="Next Post: Could not create temporary directory: 权限被拒绝">Could not create temporary directory: 权限被拒绝 &raquo;</a>
       
       </p>
         </div>
