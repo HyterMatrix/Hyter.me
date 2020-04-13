@@ -4,7 +4,7 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2020-04-13T15:45:13+08:00</updated>
+  <updated>2020-04-13T15:46:24+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -23,6 +23,8 @@
 <p>而对于国内的广大 <code>electron</code>开发者来说，这个过程往往是非常漫长并且痛苦的。如何解决速度慢的这个问题呢？欢迎仔细阅</p>
 
 <p>本文的主要测试环境是 <code>window</code>和 <code>mac</code>， <code>npm</code>的版本号均为 <code>5.6.0</code>。</p>
+
+<span id="more"></span><!-- more -->
 
 <h2 id="toc_0">适用症状</h2>
 
