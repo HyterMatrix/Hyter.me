@@ -219,12 +219,14 @@
                       <div class="a-content-text">
                         
                         	<pre class="line-numbers"><code class="language-text">##################################
-# 更新Anaconda
-conda update conda
+更新conda
+conda update -n base -c defaults conda
 
-# 更新所有包
+更新 anaconda
+conda update anaconda
+
+更新所有包：注意是两个横线“-”
 conda update --all
-
 ##################################
 
 # 添加清华源
@@ -232,7 +234,6 @@ conda update --all
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
-# https://blog.csdn.net/qq_18941425/article/details/80201966
 
 ##################################
 </code></pre>

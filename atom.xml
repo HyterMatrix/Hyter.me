@@ -4,7 +4,7 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2020-04-13T15:46:24+08:00</updated>
+  <updated>2020-05-09T11:12:37+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -615,12 +615,14 @@ git diff [old commit id] [commit id]  --name-only | xargs tar -czvf mytarfile.ta
     <id>https://hyter.me/update-anaconde-pkgs.html.html</id>
     <content type="html"><![CDATA[
 <pre class="line-numbers"><code class="language-text">##################################
-# 更新Anaconda
-conda update conda
+更新conda
+conda update -n base -c defaults conda
 
-# 更新所有包
+更新 anaconda
+conda update anaconda
+
+更新所有包：注意是两个横线“-”
 conda update --all
-
 ##################################
 
 # 添加清华源
@@ -628,7 +630,6 @@ conda update --all
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
-# https://blog.csdn.net/qq_18941425/article/details/80201966
 
 ##################################
 </code></pre>
