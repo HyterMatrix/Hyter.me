@@ -164,20 +164,18 @@
 <ul>
 <li>Python framework，即 Python 框架；</li>
 <li>Python 应用目录；</li>
-<li>指向 Python 的连接。</li>
+<li>指向 Python 的连接。
+<span id="more"></span><!-- more -->
+对于 Mac 自带的 Python，其框架目录为：
+<code>shell
+System/Library/Frameworks/Python.framework
+</code>
+而我们安装的 Python，其（默认）框架目录为：
+<code>shell
+/Library/Frameworks/Python.framework
+</code>
+接下来，我们就分别（在 Mac 终端进行）删除上面所提到的三部分。</li>
 </ul>
-
-<p>对于 Mac 自带的 Python，其框架目录为：</p>
-
-<pre class="line-numbers"><code class="language-shell">System/Library/Frameworks/Python.framework
-</code></pre>
-
-<p>而我们安装的 Python，其（默认）框架目录为：</p>
-
-<pre class="line-numbers"><code class="language-shell">/Library/Frameworks/Python.framework
-</code></pre>
-
-<p>接下来，我们就分别（在 Mac 终端进行）删除上面所提到的三部分。</p>
 
 <p>第 1 步，删除框架：</p>
 
