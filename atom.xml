@@ -4,13 +4,79 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2020-05-11T15:24:17+08:00</updated>
+  <updated>2020-05-26T15:00:04+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[记n次修改的gitlab配置仓库存储位置]]></title>
+    <link href="https://hyter.me/change-gitlab-repository-path.html"/>
+    <updated>2020-05-26T14:57:07+08:00</updated>
+    <id>https://hyter.me/change-gitlab-repository-path.html</id>
+    <content type="html"><![CDATA[
+<p>gitlab通过rpm包安装后，默认存储位置在<code>/var/opt/gitlab/git-data/repositories</code>，通常需要更改此路径到单独的一个分区来存储仓库的数据。<br/>
+<span id="more"></span><!-- more --></p>
+
+<p>例如我这里把数据存放到<code>/data/gitlab</code>目录下</p>
+
+<p>创建<code>/data/gitlab</code>目录</p>
+
+<pre class="line-numbers"><code class="language-shell">mkdir -p /data/gitlab
+</code></pre>
+
+<p>修改gitlab配置文件，找到<code>git_data_dir</code> </p>
+
+<pre class="line-numbers"><code class="language-shell">vim /etc/gitlab/gitlab.rb
+</code></pre>
+
+<pre class="line-numbers"><code class="language-shell">git_data_dirs({
+   &quot;default&quot; =&gt; {
+     &quot;path&quot; =&gt; &quot;/data/gitlab&quot;
+    }
+})
+
+</code></pre>
+
+<p>删除注释# 并把<code>/data/gitlab</code>写入<code>path</code>的值</p>
+
+<p>停止当前gitlab，重新加载配置</p>
+
+<pre class="line-numbers"><code class="language-shell">gitlab-ctl stop
+gitlab-ctl reconfigure
+</code></pre>
+
+<p>重新加载后，会发现在<code>/data/gitlab</code>目录下多出一个<code>repositories</code>目录</p>
+
+<p>最后启动gitlab即可</p>
+
+<pre class="line-numbers"><code class="language-shell">gitlab-ctl start
+</code></pre>
+
+<h2 id="toc_0">解决宝塔安装修改配置无法启动nginx问题</h2>
+
+<p>一般来说这里就完成了，但是 在宝塔面板安装gitlab修改后，会出现nginx不能启动的现象, 原因应该宝塔是为了防止nginx冲突, 把gitlab的nginx启动文件名改成了gitlab-web, 但有个配置文件没改造成的。</p>
+
+<p>修改nginx启动文件</p>
+
+<pre class="line-numbers"><code class="language-shell">vi /opt/gitlab/sv/nginx/run
+</code></pre>
+
+<p>把 </p>
+
+<pre class="line-numbers"><code class="language-shell">exec chpst -P /opt/gitlab/embedded/sbin/nginx -p /var/opt/gitlab/nginx
+</code></pre>
+
+<p>改为</p>
+
+<pre class="line-numbers"><code class="language-shell">exec chpst -P /opt/gitlab/embedded/sbin/gitlab-web -p /var/opt/gitlab/nginx
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MAC 如何卸载 Python]]></title>
@@ -678,18 +744,6 @@ conda config --set show_channel_urls yes
 
 ##################################
 </code></pre>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Swift编程入门（13）枚举]]></title>
-    <link href="https://hyter.me/swift-learning-13.html"/>
-    <updated>2019-01-17T12:28:44+08:00</updated>
-    <id>https://hyter.me/swift-learning-13.html</id>
-    <content type="html"><![CDATA[
-<p>你已经见过Swift提供的所有内建类型了，比如整数、字符串、数组和字典等。下面几章会展示这门语言创建自定义类型的能力。本章关注的重点是枚举（enumeration或者enum）。枚举能让你创建属于明确定义的几种情形之一的实例。<br/>
-<span id="more"></span><!-- more --></p>
 
 ]]></content>
   </entry>
