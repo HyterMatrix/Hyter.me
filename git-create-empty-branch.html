@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="nSj13TCGgaK_VvpHUEJ9iDYee8rMDXsd-pUU-KWneLA" />
     <title>
     
-  更新anaconda及所有包 - HyterMatrix
+  在Git下创建一个空分支 - HyterMatrix
   
   </title>
   
@@ -139,14 +139,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>更新anaconda及所有包</h1>
+          <h1>在Git下创建一个空分支</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2019/02/14 09:03 上午</span>
+          <span class="date">2020/05/28 11:58 上午</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='python-extend.html'>Python</a></span>
+              <span class="posted-in"><a href='server.html'>服务器</a></span>
            
          
           <span class="comments">
@@ -159,24 +159,45 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <pre class="line-numbers"><code class="language-text">##################################
-更新conda
-conda update -n base -c defaults conda
+      <p>有时候我们需要在Git下创建一个空分支，从头开始Coding —— 这大概是那些重构帝最喜欢的事情。参考了github，才找到一个合适的方法。</p>
 
-更新 anaconda
-conda update anaconda
+<p>怎样安全的进行这项操作<br/>
+我们需要建一个“孤立”的空分支，为了尽可能的保证数据安全，最好还是重新clone一份代码。<br/>
+<span id="more"></span><!-- more --></p>
 
-更新所有包：注意是两个横线“-”
-conda update --all
-##################################
+<pre class="line-numbers"><code class="language-shell">$git clone https://github.com/user/repo.git
+# Clone our repo
+# Cloning into \&#39;repo\&#39;...
+# remote: Counting objects: 2791, done.
+# remote: Compressing objects: 100% (1225/1225), done.
+# remote: Total 2791 (delta 1722), reused 2513 (delta 1493)
+# Receiving objects: 100% (2791/2791), 3.77 MiB | 969 KiB/s, done.
+# Resolving deltas: 100% (1722/1722), done.
+</code></pre>
 
-# 添加清华源
-# 执行以下命令
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-conda config --set show_channel_urls yes
+<p>开工<br/>
+这里以github的操作为例，下面试图创建一个名为gh-pages的空分支</p>
 
-##################################
+<pre class="line-numbers"><code class="language-shell">$cd repo
+
+$ git checkout --orphan gh-pages
+# 创建一个orphan的分支，这个分支是独立的
+Switched to a new branch \&#39;gh-pages\&#39;
+
+git rm -rf .
+# 删除原来代码树下的所有文件
+rm \&#39;.gitignore\&#39;
+</code></pre>
+
+<p>注意这个时候你用git branch命令是看不见当前分支的名字的，除非你进行了第一次commit。</p>
+
+<p>下面我们开始添加一些代码文件，例如这里新增了一个index.html</p>
+
+<pre class="line-numbers"><code class="language-shell">$ echo \&quot;My GitHub Page\&quot; &gt; index.html
+$ git add .
+$ git commit -a -m \&quot;First pages commit\&quot;
+$ git push origin gh-pages
+在commit操作之后，你就可以用git branch命令看到新分支的名字了，然后push到远程仓库。
 </code></pre>
 
 
@@ -188,16 +209,13 @@ conda config --set show_channel_urls yes
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="python-pip-freeze.html" 
-          title="Previous Post: 命令迁移模块">&laquo; 命令迁移模块</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="swift-learning-13.html" 
-          title="Next Post: Swift编程入门（13）枚举">Swift编程入门（13）枚举 &raquo;</a>
+          <a  href="change-gitlab-repository-path.html" 
+          title="Next Post: 记n次修改的gitlab配置仓库存储位置">记n次修改的gitlab配置仓库存储位置 &raquo;</a>
       
       </p>
         </div>

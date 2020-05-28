@@ -139,6 +139,57 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
+                <a class="clearlink" href="update-anaconde-pkgs.html.html">
+                
+                  <h1>更新anaconda及所有包</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<pre class="line-numbers"><code class="language-text">##################################
+更新conda
+conda update -n base -c defaults conda
+
+更新 anaconda
+conda update anaconda
+
+更新所有包：注意是两个横线“-”
+conda update --all
+##################################
+
+# 添加清华源
+# 执行以下命令
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+
+##################################
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2019/02/14 09:03 上午</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='python-extend.html'>Python</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
                 <a class="clearlink" href="swift-learning-13.html">
                 
                   <h1>Swift编程入门（13）枚举</h1>
@@ -767,6 +818,12 @@ Swift有一组容器类型，首先介绍的是数组（array）。<br/>
 	      
 		      
 			      <li class="post">
+			        <a href="git-create-empty-branch.html">在Git下创建一个空分支</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
 			        <a href="change-gitlab-repository-path.html">记n次修改的gitlab配置仓库存储位置</a>
 			      </li>
 		     
@@ -786,12 +843,6 @@ Swift有一组容器类型，首先介绍的是数组（array）。<br/>
 		      
 			      <li class="post">
 			        <a href="could-not-create-temporary-directory.html">Could not create temporary directory: 权限被拒绝</a>
-			      </li>
-		     
-		  
-		      
-			      <li class="post">
-			        <a href="speed-up-time-machine.html">Mac 时间机器 Time Machine 备份速度太慢的解决方法 (加速备份命令)</a>
 			      </li>
 		     
 		  
