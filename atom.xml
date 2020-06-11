@@ -4,13 +4,50 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2020-05-28T12:04:07+08:00</updated>
+  <updated>2020-06-11T10:55:45+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[匹配中国人姓名(可以比检测少数名族的姓名带"·"那种)]]></title>
+    <link href="https://hyter.me/re-chinese-name.html"/>
+    <updated>2020-06-11T10:50:20+08:00</updated>
+    <id>https://hyter.me/re-chinese-name.html</id>
+    <content type="html"><![CDATA[
+<p>最近系统需要校验少数名族姓名（就是少数名族带·的）</p>
+
+<span id="more"></span><!-- more -->
+
+<p>PHP的代码</p>
+
+<pre class="line-numbers"><code class="language-php">function checkChineseName($name)
+{
+    if(!$name){
+        return false;
+    }
+   //有名字长度超过20算我输
+    if(mb_strlen($name) &lt; 2 || mb_strlen($name) &gt; 20){
+        return false;
+    }
+    if(preg_match(&#39;/^[\x{4e00}-\x{9fa5}]+[·?]?[\x{4e00}-\x{9fa5}]+$/u&#39;, $name,$matchers)){
+        return true;
+    }else{
+        return false;
+    }
+}
+</code></pre>
+
+<p>js的正则</p>
+
+<pre class="line-numbers"><code class="language-javascript">/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[在Git下创建一个空分支]]></title>
@@ -751,20 +788,6 @@ git diff [old commit id] [commit id]  --name-only | xargs tar -czvf mytarfile.ta
     <content type="html"><![CDATA[
 <p>账号：telecomadmin<br/>
 密码：nE7jA%5m%</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[命令迁移模块]]></title>
-    <link href="https://hyter.me/python-pip-freeze.html"/>
-    <updated>2019-02-15T08:15:27+08:00</updated>
-    <id>https://hyter.me/python-pip-freeze.html</id>
-    <content type="html"><![CDATA[
-<p>生成requirements.txt文件 保存当前环境所依赖的类库</p>
-
-<pre class="line-numbers"><code class="language-text">pip freeze &gt;requirements.txt
-</code></pre>
 
 ]]></content>
   </entry>
