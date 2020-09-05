@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="nSj13TCGgaK_VvpHUEJ9iDYee8rMDXsd-pUU-KWneLA" />
     <title>
     
-  PHP关于SSH和SFTP相关方法 - HyterMatrix
+  Go 跨平台编译 - HyterMatrix
   
   </title>
   
@@ -139,16 +139,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>PHP关于SSH和SFTP相关方法</h1>
+          <h1>Go 跨平台编译</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2019/07/16 15:08 下午</span>
+          <span class="date">2020/09/05 12:51 下午</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='PHP.html'>PHP</a></span>
-          
-              <span class="posted-in"><a href='PHP%E4%BB%A3%E7%A0%81%E6%AE%B5.html'>PHP代码段</a></span>
+              <span class="posted-in"><a href='Go.html'>Go</a></span>
            
          
           <span class="comments">
@@ -161,22 +159,40 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>php支持ssh和sftp推送，原生不支持，需要装pecl的ssh2扩展。</p>
+      <p>默认我们<code>go build</code>的可执行文件都是当前操作系统可执行的文件，如果我想在windows下编译一个linux下可执行文件，那需要怎么做呢？</p>
 
-<ol>
-<li>扩展安装：</li>
-<li>SSH使用：</li>
-</ol>
+<span id="more"></span><!-- more -->
 
-<pre class="line-numbers"><code class="language-php">extension_loaded(&#39;ssh2&#39;) #检查是否安装ssh2扩展模块
-$conn = ssh2_connect(IP, PORT) #连接远程服务器，看是否网络通，返回连接资源
-ssh2_auth_password($conn, $username, $password) #通过账号密码认证登陆远程远程服务
-$ssh2_sft = ssh2_sftp($conn);# 获取sftp连接资源
-ssh2_sftp_mkdir($ssh2_sftp, $path, 0777, true)#创建远程目录
-ssh2_scp_send($conn, $localfile, $filename, 0777)#上传文件
+<p>只需要指定目标操作系统的平台和处理器架构即可：</p>
+
+<pre class="line-numbers"><code class="language-bash">SET CGO_ENABLED=0  // 禁用CGO
+SET GOOS=linux  // 目标平台是linux
+SET GOARCH=amd64  // 目标处理器架构是amd64
 </code></pre>
 
-<p>在一些特殊情况下，比如在内网，外网主机被映射为内网一个内网ip时，ssh2_scp_send可能推送不出文件，并且还会一直发送，长时间不会返回上传状态，这个时候需要用使用sftp方式推送</p>
+<p><em>使用了cgo的代码是不支持跨平台编译的</em></p>
+
+<p>然后再执行<code>go build</code>命令，得到的就是能够在Linux平台运行的可执行文件了。</p>
+
+<h2 id="toc_0">Mac 下编译 Linux 和 Windows平台 64位 可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+</code></pre>
+
+<h2 id="toc_1">Linux 下编译 Mac 和 Windows 平台64位可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+</code></pre>
+
+<h2 id="toc_2">Windows下编译Mac平台64位可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">SET CGO_ENABLED=0
+SET GOOS=darwin
+SET GOARCH=amd64
+go build
+</code></pre>
 
 
     
@@ -187,16 +203,13 @@ ssh2_scp_send($conn, $localfile, $filename, 0777)#上传文件
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="php-iconv-qa.html" 
-          title="Previous Post: 调用iconv和mb_convert_encoding会显示乱码或空白">&laquo; 调用iconv和mb_convert_encoding会显示乱码或空白</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="rsa-pkcs1-to-pkcs8.html" 
-          title="Next Post: RSA公钥格式PKCS#1,PKCS#8互转说明">RSA公钥格式PKCS#1,PKCS#8互转说明 &raquo;</a>
+          <a  href="docker-run-edit-config.html" 
+          title="Next Post: 如何修改运行中的docker容器的端口映射和挂载目录">如何修改运行中的docker容器的端口映射和挂载目录 &raquo;</a>
       
       </p>
         </div>

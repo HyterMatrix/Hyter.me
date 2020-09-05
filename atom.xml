@@ -4,13 +4,57 @@
   <title><![CDATA[HyterMatrix]]></title>
   <link href="https://hyter.me/atom.xml" rel="self"/>
   <link href="https://hyter.me/"/>
-  <updated>2020-07-20T13:18:15+08:00</updated>
+  <updated>2020-09-05T12:55:59+08:00</updated>
   <id>https://hyter.me/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Go 跨平台编译]]></title>
+    <link href="https://hyter.me/go-build.html"/>
+    <updated>2020-09-05T12:51:44+08:00</updated>
+    <id>https://hyter.me/go-build.html</id>
+    <content type="html"><![CDATA[
+<p>默认我们<code>go build</code>的可执行文件都是当前操作系统可执行的文件，如果我想在windows下编译一个linux下可执行文件，那需要怎么做呢？</p>
+
+<span id="more"></span><!-- more -->
+
+<p>只需要指定目标操作系统的平台和处理器架构即可：</p>
+
+<pre class="line-numbers"><code class="language-bash">SET CGO_ENABLED=0  // 禁用CGO
+SET GOOS=linux  // 目标平台是linux
+SET GOARCH=amd64  // 目标处理器架构是amd64
+</code></pre>
+
+<p><em>使用了cgo的代码是不支持跨平台编译的</em></p>
+
+<p>然后再执行<code>go build</code>命令，得到的就是能够在Linux平台运行的可执行文件了。</p>
+
+<h2 id="toc_0">Mac 下编译 Linux 和 Windows平台 64位 可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+</code></pre>
+
+<h2 id="toc_1">Linux 下编译 Mac 和 Windows 平台64位可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+</code></pre>
+
+<h2 id="toc_2">Windows下编译Mac平台64位可执行程序：</h2>
+
+<pre class="line-numbers"><code class="language-bash">SET CGO_ENABLED=0
+SET GOOS=darwin
+SET GOARCH=amd64
+go build
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何修改运行中的docker容器的端口映射和挂载目录]]></title>
@@ -796,30 +840,6 @@ function pingAddress($address,$proxy=false) {
         }
     return $status;
 }
-</code></pre>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何使用git把某一次commit修改过的文件打包]]></title>
-    <link href="https://hyter.me/git-diff-file-tar.html"/>
-    <updated>2018-12-12T09:38:34+08:00</updated>
-    <id>https://hyter.me/git-diff-file-tar.html</id>
-    <content type="html"><![CDATA[
-<p>把新增加的文件使用git add添加进改动</p>
-
-<p>使用git commit提交改动</p>
-
-<p>使用<code>git log</code>查看提交的commit id</p>
-
-<p>使用命令</p>
-
-<pre class="line-numbers"><code class="language-git">git diff-tree -r --no-commit-id --name-only [commit id] | xargs tar -rf mytarfile.tar
-
-# or
-
-git diff [old commit id] [commit id]  --name-only | xargs tar -czvf mytarfile.tar.gz
 </code></pre>
 
 ]]></content>
